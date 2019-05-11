@@ -11,3 +11,10 @@
 @import "node_modules/bulma/bulma";
 // Bulma vue modules 
 @import "node_modules/buefy/src/scss/buefy";
+// CUSTOM SASS PAGES 
+//overiding the framework styles since framwork gives us just a baseline 
+@import "overides";
+//helper e.g. class helpers to add margin to top, bottom, to pull something to the left or the right 
+@import "helpers";
+//general css styles
+@import "styles";
