@@ -8,13 +8,18 @@ Vue.use(Buefy);
 
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
-var app = new Vue({
-el: '#app',
-data:{}
-});
-$(document).ready(function(){
+// var app = new Vue({
+// el: '#app',
+// data:{}
+// });
+// $(document).ready(function(){
 
-$('button.dropdown').hover(function(){
-$(this).toggleClass('is-open');
-});
-});
+// $('button.dropdown').hover(function(){
+// $(this).toggleClass('is-open');
+// });
+// });
+require('./manage')
+
+
+
+  

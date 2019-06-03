@@ -1,36 +1,72 @@
-<nav class="navbar has-shadow">
+<nav class="navbar has-shadow" >
     <div class="container">
-    <div class="navbar-start">
-    <a class="navbar-item" href="{{route('home')}}" >
-    <img src="{{asset('images/chamaoperatorlearning.png')}}" alt="ChamaOperator Learning"/></a>
-    <a href="#" class="navbar-item is-tab is-hidden-mobile m-l-10">Learn</a>
-    <a href="#" class="navbar-item is-tab is-hidden-mobile">Discuss</a>
-    <a href="#" class="navbar-item is-tab is-hidden-mobile">share</a>
+      <div class="navbar-brand">
+        <a class="navbar-item is-paddingless brand-item" href="{{route('home')}}">
+          <img src="{{asset('images/chamaoperatorlearning.png')}}" alt="DevMarketer logo">
+        </a>
+  
+        {{-- @if (Request::segment(1) == "manage")
+          <a class="navbar-item is-hidden-desktop" id="admin-slideout-button">
+            <span class="icon">
+              <i class="fa fa-arrow-circle-right"></i>
+            </span>
+          </a>
+        @endif --}}
+        @if(Request::segment(1)=="manage")
+        <a class="navbar-item is-hidden-desktop" id="admin-slideout-button"> <span class="icon"><i class="fa fa-arrow-circle-o-right"></i></span></a>
+  @endif
+        <button class="button navbar-burger">
+         <span></span>
+         <span></span>
+         <span></span>
+       </button>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item is-tab is-active">Learn</a>
+          <a class="navbar-item is-tab">Discuss</a>
+          <a class="navbar-item is-tab">Share</a>
+        </div> <!-- end of .navbar-start -->
+  
+  
+        <div class="navbar-end nav-menu" style="overflow: visible">
+          @guest
+            <a href="{{route('login')}}" class="navbar-item is-tab">Login</a>
+            <a href="{{route('register')}}" class="navbar-item is-tab">Join the Community</a>
+          @else
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">Hey {{Auth::user()->name}}</a>
+              <div class="navbar-dropdown is-right" >
+                <a href="#" class="navbar-item">
+                  <span class="icon">
+                    <i class="fa fa-fw fa-user-circle-o m-r-5"></i>
+                  </span>Profile
+                </a>
+  
+                <a href="#" class="navbar-item">
+                  <span class="icon">
+                    <i class="fa fa-fw fa-bell m-r-5"></i>
+                  </span>Notifications
+                </a>
+                <a href="{{route('manage.dashboard')}}" class="navbar-item">
+                  <span class="icon">
+                    <i class="fa fa-fw fa-cog m-r-5"></i>
+                  </span>Manage
+                </a>
+                <hr class="navbar-divider">
+                <a href="{{route('logout')}}" class="navbar-item" onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();">
+                  <span class="icon">
+                    <i class="fa fa-fw fa-sign-out m-r-5"></i>
+                  </span>
+                  Logout
+                </a>
+                @include('_inc.forms.logout')
+              </div>
+            </div>
+          @endguest
+        </div>
+      </div>
+  
     </div>
-    <div class="navbar-end" style="overflow:visible;">
-    @if(Auth::guest())
-    <a href="{{route('login')}}" class="navbar-item is-tab">Login</a>
-    <a href="{{route('register')}}" class="navbar-item is-tab">Join the community</a>
-    @else
-    <button class="dropdown navbar-item is-aligned-right  is-tab">
-    Hey {{Auth::user()->name}}<span class="icon"> <i class="fa fa-caret-down"></i></span>
-    <ul class="dropdown-menu">
-    <li><a href="#"><span class="icon"> <i class="fa fa-fw m-r-10 fa-user-circle-o"></i> </span> Profile</a></li>
-    <li><a href="#"><span class="icon"> <i class="fa fa-fw m-r-10 fa-bell"></i> </span> Notifications</a></li>
-    <li><a href="#"><span class="icon"> <i class="fa fa-fw m-r-10 fa-cog"></i> </span>Settings</a></li>
-    <li class="seperator"></li>
-    <li><a href="#"><span class="icon"> <i class="fa fa-fw m-r-10 fa-sign-out"></i> </span>Logout</a></li>
-    
-    
-    </ul>
-    
-    
-    
-    </button>
-    
-    @endif
-    
-    </div>
-    
-    </div>
-            </nav>
+  </nav>

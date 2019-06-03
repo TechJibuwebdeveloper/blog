@@ -30,7 +30,7 @@
                         @endif
                         </div>
                 <b-checkbox name="remember"  class="m-t-20">Remember me </b-checkbox>
-                <button class="button is-primary is-fullwidth is-outlined m-t-30">Log in</button>
+                <button class="button is-success is-fullwidth is-outlined m-t-30">Log in</button>
         </form>
             </div><!---end of card content-->
         </div><!--end of card-->

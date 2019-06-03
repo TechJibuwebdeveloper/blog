@@ -53,7 +53,7 @@ Sign Up
                 </div>
                 </div>
 
-        <button class="button is-primary is-fullwidth is-outlined m-t-30">Sign Up</button>
+        <button class="button is-success is-fullwidth is-outlined m-t-30">Sign Up</button>
 </form>
     </div><!---end of card content-->
 </div><!--end of card-->
