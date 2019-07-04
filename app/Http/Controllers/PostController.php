@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Post;
 class PostController extends Controller
 {
     /**
@@ -11,9 +11,13 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        $this->middleware('role:superadministrator|administrator|editor|author|contributor');
+    }
     public function index()
     {
         //
+        return view('manage.posts.index');
     }
 
     /**
@@ -24,6 +28,7 @@ class PostController extends Controller
     public function create()
     {
         //
+        return view('manage.posts.create');
     }
 
     /**
@@ -80,5 +85,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function apiCheckUnique(Request $request){
+
+        return json_encode(!Post::where('slug', '=' , $request->slug)->exists());
     }
 }

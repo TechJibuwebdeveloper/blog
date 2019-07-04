@@ -31,7 +31,8 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('manage.users.create');
+        $roles = Role::all();
+        return view('manage.users.create')->withRoles($roles);   return view('manage.users.create');
     }
 
     /**
@@ -43,37 +44,45 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
-'name'=>'required|max:255', 'email'=>'required|email|unique:users' 
-        ]);
-if(!empty($request->password)){
-    $password=trim($request->password);
-}else{
-    $length=10;
-    $keyspace='123456789acdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
-    $str='';
-    $max=mb_strlen($keyspace, '8bit')-1;
-    for($i=0;$i<$length; ++$i){
-        $str.=$keyspace[random_int(0, $max)];
-    }
-$password= $str;
-}
-$user=new User;
-$user->name=$request->name;
-$user->email=$request->email;
-$user->password=Hash::make($password);
-$user->save();
-    return redirect()->route('users.show', $user->id);
-
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+        $this->validateWith([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users'
+          ]);
+          if (!empty($request->password)) {
+            $password = trim($request->password);
+          } else {
+            # set the manual password
+            $length = 10;
+            $keyspace = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+            $str = '';
+            $max = mb_strlen($keyspace, '8bit') - 1;
+            for ($i = 0; $i < $length; ++$i) {
+                $str .= $keyspace[random_int(0, $max)];
+            }
+            $password = $str;
+          }
+          $user = new User();
+          $user->name = $request->name;
+          $user->email = $request->email;
+          $user->password = Hash::make($password);
+          $user->save();
+          if ($request->roles) {
+            $user->syncRoles(explode(',', $request->roles));
+          }
+          return redirect()->route('users.show', $user->id);
+          // if () {
+          //
+          // } else {
+          //   Session::flash('danger', 'Sorry a problem occurred while creating this user.');
+          //   return redirect()->route('users.create');
+          // }
+        }
+        /**
+         * Display the specified resource.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
     public function show($id)
     {
         //
