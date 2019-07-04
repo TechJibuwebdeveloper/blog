@@ -7,7 +7,7 @@
 <h1 class="title">Edit User</h1>
     </div>
 </div>
-
+<!-- This is for editing the users of our system so as to change either their username or password for that matter  -->
 <hr class="m-t-10">
 <form action="{{route('users.update', $user->id)}}" method="POST">
     {{method_field('PUT')}}
