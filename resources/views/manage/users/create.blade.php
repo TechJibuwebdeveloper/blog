@@ -7,6 +7,7 @@
         <h1 class="title">Create New User</h1>
       </div>
     </div>
+    <!-- This is the blade for creating users into the system without wasting much time my friend  -->
     <hr class="m-t-0">
     <form action="{{route('users.store')}}" method="POST">
       {{csrf_field()}}
